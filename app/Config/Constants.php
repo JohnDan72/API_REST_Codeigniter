@@ -80,5 +80,5 @@ defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest auto
 
 //------------------------ MY CONSTANTS ------------------------
 //valores globales del número máximo de registros por Pagination
-define ('NUM_MAX_REG_PAGE', 3);
-define ('GLOBAL_LINKS_EXTREMOS', 4);
+defined ('NUM_MAX_REG_PAGE') || define ('NUM_MAX_REG_PAGE', 3);
+defined ('GLOBAL_LINKS_EXTREMOS') || define ('GLOBAL_LINKS_EXTREMOS', 4);

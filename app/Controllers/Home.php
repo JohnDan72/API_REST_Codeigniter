@@ -43,27 +43,43 @@ class Home extends Auth
 		echo json_encode($response,JSON_UNESCAPED_UNICODE );
 	}
 
-	public function getDetenidos(){
-		$token = $this->request->getHeader('Authorization')->getValue(); // se lee el token de la cabecera
-		$response = ['success' => false];	//inicializamos el response general
-		$ServerStatus = 401;	//se inicializa el status del servidor
+	public function getDetenido(){
+		$response['success'] = false;
 
-		if($this->validateToken($token)){
-			$no_remision = $this->request->getPost('no_remision');
-			$data = $this->Detenido->getRemisione($no_remision);
-			if(!$data){ //no hay resultados
-				$response['msg_error'] = "no existen resultados con los parámetros incluídos";
-			}
-			else{ //todo sale bien
-				$response['success'] = true;
-				$response['data'] = $data;
-				$ServerStatus = 200;
-			}
+		$no_remision = $this->request->getPost('no_remision');
+		$data = $this->Detenido->getRemision($no_remision);
+		if(!$data){ //no hay resultados
+			$response['msg_error'] = "no existen resultados con los parámetros incluídos";
 		}
-		else{ //el token es inválido
-			$response['msg_error'] = 'Token inválido mi chavo';
+		else{ //todo sale bien
+			$response['success'] = true;
+			$response['data'] = $data;
 		}
 
-		return $this->respond($response,$ServerStatus);
+		return $this->respond($response);
 	}
+
+	// public function getDetenido(){
+	// 	$token = $this->request->getHeader('Authorization')->getValue(); // se lee el token de la cabecera
+	// 	$response = ['success' => false];	//inicializamos el response general
+	// 	$ServerStatus = 401;	//se inicializa el status del servidor
+
+	// 	if($this->validateToken($token)){
+	// 		$no_remision = $this->request->getPost('no_remision');
+	// 		$data = $this->Detenido->getRemision($no_remision);
+	// 		if(!$data){ //no hay resultados
+	// 			$response['msg_error'] = "no existen resultados con los parámetros incluídos";
+	// 		}
+	// 		else{ //todo sale bien
+	// 			$response['success'] = true;
+	// 			$response['data'] = $data;
+	// 			$ServerStatus = 200;
+	// 		}
+	// 	}
+	// 	else{ //el token es inválido
+	// 		$response['msg_error'] = 'Token inválido mi chavo';
+	// 	}
+
+	// 	return $this->respond($response,$ServerStatus);
+	// }
 }

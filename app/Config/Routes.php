@@ -37,9 +37,13 @@ $routes->get('hello', 'Home::hello');
 $routes->get('sumar', 'Home::sumar');
 
 
+$routes->post('home/getDetenido','Home::getDetenido', ['filter'=>'authFilter']);
+$routes->post('getDetenido','Home::getDetenido', ['filter'=>'authFilter']);
+
+
 /*----------------------JSON WEB TOKEN (JWT)----------------------*/
 $routes->resource('api/auth', ['controller' => 'Auth']);
-$routes->resource('api/user', ['controller' => 'User']);
+$routes->resource('api/home', ['controller' => 'Home']);
 /*
  * --------------------------------------------------------------------
  * Additional Routing

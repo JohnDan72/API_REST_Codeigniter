@@ -11,12 +11,17 @@ class AuthFilter implements FilterInterface
 {
 	use ResponseTrait;
 
-	public function before(RequestInterface $request)
-	{
-		$key        = Services::getSecretKey();
-		$authHeader = $request->getServer('HTTP_AUTHORIZATION');
-		$arr        = explode(' ', $authHeader);
-		$token      = $arr[1];
+	public function before(RequestInterface $request, $arguments = null)
+	{	
+		//este filtro valida por Bearer Token
+		// $key        = Services::getSecretKey();
+		// $authHeader = $request->getServer('HTTP_AUTHORIZATION');
+		// $arr        = explode(' ', $authHeader);
+		// $token      = $arr[1];
+
+		//validación por header
+		$key = Services::getSecretKey();
+		$token = $request->getServer('HTTP_AUTHORIZATION');
 
 		try
 		{
@@ -24,14 +29,19 @@ class AuthFilter implements FilterInterface
 		}
 		catch (\Exception $e)
 		{
-			return Services::response()
-				->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
+			//  return Services::response()
+			//  	->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
+			 return Services::response()
+			 	->setJSON([
+					 		'success' => false,
+					 		'msg_error' => 'Error de autenticación',
+						  ]);
 		}
 	}
 
 	//--------------------------------------------------------------------
 
-	public function after(RequestInterface $request, ResponseInterface $response)
+	public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
 	{
 		// Do something here
 	}

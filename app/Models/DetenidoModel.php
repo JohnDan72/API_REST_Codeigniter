@@ -15,7 +15,7 @@ class DetenidoModel extends Model
     //protected $allowedFields = ['Nombre', 'Ap_Paterno', 'Ap_Materno'];
     
 
-    public function getRemisione($no_remsion = null){
+    public function getRemision($no_remsion = null){
         if($no_remsion == null)
             return false;
             $sql = "SELECT * FROM detenido WHERE No_Remision = ?";
